@@ -1,6 +1,6 @@
 {
-	"name": "@pricecalc/server",
-	"version": "0.0.1",
+	"name": "@nextnestfullstack/server",
+	"version": "0.0.0",
 	"author": "Andrew Luchkevych",
 	"scripts": {
 		"dev": "NODE_OPTIONS=\"--no-deprecation\" NODE_ENV=development nodemon",

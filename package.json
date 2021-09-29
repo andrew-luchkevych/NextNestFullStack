@@ -1,0 +1,13 @@
+{
+	"name": "nextnestfullstack",
+	"version": "0.0.0",
+	"author": "Andrew Luchkevych",
+	"private": true,
+	"workspaces": [
+		"workspaces/*"
+	],
+	"devDependencies": {
+		"concurrently": "^6.0.0"
+	},
+	"scripts": {}
+}

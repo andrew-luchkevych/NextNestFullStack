@@ -1,10 +1,11 @@
 import * as cookieParser from "cookie-parser";
-import { Logger, ValidationPipe } from "@nestjs/common"
+import * as helmet from "helmet";
+import { json } from "express";
 import { NestFactory } from "@nestjs/core"
+import { Logger, ValidationPipe } from "@nestjs/common"
+import { ConfigService } from "./common/config/config.service"
 import setupAdminPanel from "./admin/admin.plugin"
 import { AppModule } from "./app.module"
-import { ConfigService } from "./common/config/config.service"
-import { Request, Response, NextFunction, json } from "express";
 
 class App {
 	constructor(private readonly configService: ConfigService) {
@@ -20,23 +21,9 @@ class App {
 				skipMissingProperties: true,
 			}),
 		);
+		app.use(helmet());
 		app.use(json());
-
-		app.use(function (req: Request, res: Response, next: NextFunction) {
-
-			// Website you wish to allow to connect
-			res.setHeader("Access-Control-Allow-Origin", "http://localhost:4000");
-
-			res.setHeader("Vary", "Origin");
-
-			// Request methods you wish to allow
-			res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-
-			// Request headers you wish to allow
-			res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-			next();
-		});
+		app.enableCors();
 
 		await setupAdminPanel(app);
 		await app.listen(port);
